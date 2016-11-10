@@ -22,10 +22,10 @@ const NavMovies = ({ onNavChange }) => (
     initialRoute={{ key: 'movies' }}
     renderScene={(route, navigator) => {
       console.log("In NavMovies")
-      console.log(this.nowPlaying)
+      console.log(this.props.nowPlaying)
       onNavChange(navigator)
       if(route.key == 'movies') {
-        return <Movies MoviesNowPlaying={this.nowPlaying} onSelectMovie={movie => navigator.push({key: 'details', movie})} />
+        return <Movies moviesNowPlaying={this.nowPlaying} onSelectMovie={movie => navigator.push({key: 'details', movie})} />
       }
       return (
         <View style = {{ flex:1, backgroundColor: 'rgb(230, 230, 232)'}}>
@@ -62,8 +62,7 @@ const NavMovies = ({ onNavChange }) => (
 
 NavMovies.propTypes = {
   onNavChange: React.PropTypes.func,
-  nowPlaying: React.PropTypes.bool,
+  nowPlaying: React.PropTypes.bool.isRequired,
 }
 
 export default NavMovies;
-

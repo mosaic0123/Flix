@@ -25,7 +25,7 @@ let likes = 0
 class Movies extends React.Component {
   // static propTypes = {
   //   onSelectMovie: React.PropTypes.func.isRequired,
-  //   MoviesNowPlaying: React.PropTypes.bool,
+  //   moviesNowPlaying: React.PropTypes.bool,
   // }
 
   state = {
@@ -40,11 +40,11 @@ class Movies extends React.Component {
 
   componentDidUpdate(){
     console.log("componentDidUpdate")
-    console.log(this.props.MoviesNowPlaying)
+    console.log(this.props.moviesNowPlaying)
   }
 
   // componentDidUpdate() {
-  //   if(this.MoviesNowPlaying==true){
+  //   if(this.moviesNowPlaying==true){
   //     this.fetchMovies()
   //   }
   //   else{
@@ -109,7 +109,7 @@ class Movies extends React.Component {
 
 Movies.propTypes = {
     onSelectMovie: React.PropTypes.func.isRequired,
-    MoviesNowPlaying: React.PropTypes.bool,
+    moviesNowPlaying: React.PropTypes.bool.isRequired,
 }
 
 export default Movies;
