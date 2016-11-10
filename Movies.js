@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   ListView,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native'
 import MovieCell from './MovieCell'
 import * as api from './api'
@@ -23,14 +24,10 @@ const styles = StyleSheet.create({
 let likes = 0
 
 class Movies extends React.Component {
-  // static propTypes = {
-  //   onSelectMovie: React.PropTypes.func.isRequired,
-  //   moviesNowPlaying: React.PropTypes.bool,
-  // }
-
   state = {
-    isLoading: true,
+    isLoading: false,
     isEmpty: false,
+    refreshing: false,
     dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
   }
 
@@ -39,18 +36,13 @@ class Movies extends React.Component {
   }
 
   componentDidUpdate(){
-    console.log("componentDidUpdate")
-    console.log(this.props.moviesNowPlaying)
+    if(this.props.moviesNowPlaying){
+      this.fetchMovies()
+    }
+    else {
+      this.fetchTopRated()
+    }
   }
-
-  // componentDidUpdate() {
-  //   if(this.moviesNowPlaying==true){
-  //     this.fetchMovies()
-  //   }
-  //   else{
-  //     this.fetchTopRated()
-  //   }
-  // }
 
   fetchMovies() {
     this.setState({ isLoading: true })

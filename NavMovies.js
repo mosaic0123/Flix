@@ -16,16 +16,16 @@ const navBarStyle = {
   backgroundColor: 'rgb(250, 117, 96)',
 }
 
-const NavMovies = ({ onNavChange }) => (
+const NavMovies = ({ onNavChange, nowPlaying }) => (
   <Navigator
     style = {{paddingTop: navBarHeight}}
     initialRoute={{ key: 'movies' }}
     renderScene={(route, navigator) => {
       console.log("In NavMovies")
-      console.log(this.props.nowPlaying)
+      console.log(nowPlaying)
       onNavChange(navigator)
       if(route.key == 'movies') {
-        return <Movies moviesNowPlaying={this.nowPlaying} onSelectMovie={movie => navigator.push({key: 'details', movie})} />
+        return <Movies moviesNowPlaying={nowPlaying} onSelectMovie={movie => navigator.push({key: 'details', movie})} />
       }
       return (
         <View style = {{ flex:1, backgroundColor: 'rgb(230, 230, 232)'}}>
