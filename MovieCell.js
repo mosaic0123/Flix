@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     borderWidth: 1,
-    borderColor: 'rgb(99, 162, 76)',
+    borderColor: 'rgb(225, 229, 232)',
   },
   textContainer: {
     flex: 1,

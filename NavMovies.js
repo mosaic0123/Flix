@@ -7,13 +7,14 @@ import {
   Platform,
 } from 'react-native'
 import MovieCell from './MovieCell'
+import MovieDetail from './MovieDetail'
 import Movies from './Movies'
 import * as api from './api'
 
 const navBarHeight = 60
 const navBarStyle = {
   height: navBarHeight,
-  backgroundColor: 'rgb(250, 117, 96)',
+  backgroundColor: 'rgb(98, 200, 247)',
 }
 
 const NavMovies = ({ onNavChange, nowPlaying }) => (
@@ -21,17 +22,13 @@ const NavMovies = ({ onNavChange, nowPlaying }) => (
     style = {{paddingTop: navBarHeight}}
     initialRoute={{ key: 'movies' }}
     renderScene={(route, navigator) => {
-      console.log("In NavMovies")
-      console.log(nowPlaying)
       onNavChange(navigator)
       if(route.key == 'movies') {
         return <Movies moviesNowPlaying={nowPlaying} onSelectMovie={movie => navigator.push({key: 'details', movie})} />
       }
       return (
-        <View style = {{ flex:1, backgroundColor: 'rgb(230, 230, 232)'}}>
-          <Text> Detail View </Text>
-          <Text>{route.movie.title}</Text>
-        </View>
+        <MovieDetail movie={route.movie}>
+        </MovieDetail>
       )
     }}
     configureScene={() => Navigator.SceneConfigs.HorizontalSwipeJump}
@@ -50,7 +47,12 @@ const NavMovies = ({ onNavChange, nowPlaying }) => (
           RightButton: () => {},
           Title: (route) => {
             if (route.key == 'movies') {
-              return <Text>Now Playing</Text>
+              if(nowPlaying){
+                return <Text>Now Playing</Text>
+              }
+              else{
+                return <Text>Top Rated</Text>
+              }
             }
             return null
           },

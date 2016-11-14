@@ -36,6 +36,10 @@ class Movies extends React.Component {
   }
 
   componentDidUpdate(){
+    this.reloadData()
+  }
+
+  reloadData() {
     if(this.props.moviesNowPlaying){
       this.fetchMovies()
     }
@@ -44,8 +48,14 @@ class Movies extends React.Component {
     }
   }
 
+  _onRefresh() {
+    this.setState({refreshing: true})
+    this.reloadData()
+    this.setState({refreshing: false})
+  }
+
   fetchMovies() {
-    this.setState({ isLoading: true })
+    // this.setState({ isLoading: true })
     api.fetchMovies().then(results => this.updateRows(results))
       .catch(error => {
         this.setState({ isLoading: false })
@@ -54,7 +64,7 @@ class Movies extends React.Component {
   }
 
   fetchTopRated() {
-    this.setState({ isLoading: true })
+    // this.setState({ isLoading: true })
     api.fetchTopRated().then(results => this.updateRows(results))
       .catch(error => {
         this.setState({ isLoading: false })
@@ -84,9 +94,14 @@ class Movies extends React.Component {
         </View>
       )
     }
-    console.log('isLoading', this.state.isLoading)
     return (
       <ListView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }
         style={styles.container}
         dataSource={this.state.dataSource}
         renderRow={row => (
